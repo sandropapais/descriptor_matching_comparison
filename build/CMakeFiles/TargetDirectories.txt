@@ -1,3 +1,0 @@
-/home/workspace/descriptor_matching/build/CMakeFiles/rebuild_cache.dir
-/home/workspace/descriptor_matching/build/CMakeFiles/descriptor_matching.dir
-/home/workspace/descriptor_matching/build/CMakeFiles/edit_cache.dir
