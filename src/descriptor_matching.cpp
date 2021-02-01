@@ -14,7 +14,7 @@ void matchDescriptors(cv::Mat &imgSource, cv::Mat &imgRef, vector<cv::KeyPoint> 
 {
 
     // configure matcher
-    bool crossCheck = false;
+    bool crossCheck = true;
     cv::Ptr<cv::DescriptorMatcher> matcher;
 
     if (matcherType.compare("MAT_BF") == 0)
@@ -68,7 +68,7 @@ void matchDescriptors(cv::Mat &imgSource, cv::Mat &imgRef, vector<cv::KeyPoint> 
     // visualize results
     cv::Mat matchImg = imgRef.clone();
     cv::drawMatches(imgSource, kPtsSource, imgRef, kPtsRef, matches,
-                    matchImg, cv::Scalar::all(-1), cv::Scalar::all(-1), vector<char>(), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+                    matchImg, cv::Scalar::all(-1), cv::Scalar::all(-1), vector<char>(), cv::DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
 
     string windowName = "Matching keypoints between two camera images (best 50)";
     cv::namedWindow(windowName, 7);
@@ -90,8 +90,9 @@ int main()
     readDescriptors("../dat/C35A5_DescRef_BRISK_small.dat", descRef);
 
     vector<cv::DMatch> matches;
-    string matcherType = "MAT_BF"; 
-    string descriptorType = "DES_BINARY"; 
-    string selectorType = "SEL_KNN"; 
+    string matcherType = "MAT_BF"; // MAT_BF, MAT_FLANN
+    string descriptorType = "DES_BINARY"; // DES_BINARY, DES_HOG
+    string selectorType = "SEL_NN"; // SEL_NN, SEL_KNN
+    // Note: for SEL_KNN must set crossCheck = true, for SEL_NN it can be true or false
     matchDescriptors(imgSource, imgRef, kptsSource, kptsRef, descSource, descRef, matches, descriptorType, matcherType, selectorType);
 }
