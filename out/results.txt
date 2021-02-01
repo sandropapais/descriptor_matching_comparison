@@ -1,1 +1,12 @@
+BRISK large dataset results:
+
 BF matching cross-check=0 (NN) with n=2896 matches in 184.864 ms
+BF matching cross-check=1 (NN) with n=1705 matches in 368.312 ms
+BF matching cross-check=0 (KNN) with n=1578 matches in 186.222 ms
+# keypoints removed by distance ratio check = 1318
+
+BRISK small dataset results:
+
+BF matching cross-check=0 (KNN) with n=55 matches in 1.59423 ms
+# keypoints removed by distance ratio check = 45
+
