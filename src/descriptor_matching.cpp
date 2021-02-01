@@ -32,7 +32,7 @@ void matchDescriptors(cv::Mat &imgSource, cv::Mat &imgRef, vector<cv::KeyPoint> 
             descRef.convertTo(descRef, CV_32F);
         }
 
-        //... TODO : implement FLANN matching
+        matcher = cv::DescriptorMatcher::create(cv::DescriptorMatcher::FLANNBASED);
         cout << "FLANN matching";
     }
 
@@ -68,7 +68,7 @@ void matchDescriptors(cv::Mat &imgSource, cv::Mat &imgRef, vector<cv::KeyPoint> 
     // visualize results
     cv::Mat matchImg = imgRef.clone();
     cv::drawMatches(imgSource, kPtsSource, imgRef, kPtsRef, matches,
-                    matchImg, cv::Scalar::all(-1), cv::Scalar::all(-1), vector<char>(), cv::DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
+                    matchImg, cv::Scalar::all(-1), cv::Scalar::all(-1), vector<char>(), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
 
     string windowName = "Matching keypoints between two camera images (best 50)";
     cv::namedWindow(windowName, 7);
@@ -82,17 +82,17 @@ int main()
     cv::Mat imgRef = cv::imread("../images/img2gray.png");
 
     vector<cv::KeyPoint> kptsSource, kptsRef; 
-    readKeypoints("../dat/C35A5_KptsSource_BRISK_small.dat", kptsSource);
-    readKeypoints("../dat/C35A5_KptsRef_BRISK_small.dat", kptsRef);
+    readKeypoints("../dat/C35A5_KptsSource_SIFT.dat", kptsSource); //BRISK_small, BRISK_large, SIFT
+    readKeypoints("../dat/C35A5_KptsRef_SIFT.dat", kptsRef); //BRISK_small, BRISK_large, SIFT
 
     cv::Mat descSource, descRef; 
-    readDescriptors("../dat/C35A5_DescSource_BRISK_small.dat", descSource);
-    readDescriptors("../dat/C35A5_DescRef_BRISK_small.dat", descRef);
+    readDescriptors("../dat/C35A5_DescSource_SIFT.dat", descSource); //BRISK_small, BRISK_large, SIFT
+    readDescriptors("../dat/C35A5_DescRef_SIFT.dat", descRef); //BRISK_small, BRISK_large, SIFT
 
     vector<cv::DMatch> matches;
-    string matcherType = "MAT_BF"; // MAT_BF, MAT_FLANN
+    string matcherType = "MAT_FLANN"; // MAT_BF, MAT_FLANN
+    // Note for MAT_BF: for SEL_KNN must set crossCheck = true, for SEL_NN it can be true or false
     string descriptorType = "DES_BINARY"; // DES_BINARY, DES_HOG
-    string selectorType = "SEL_NN"; // SEL_NN, SEL_KNN
-    // Note: for SEL_KNN must set crossCheck = true, for SEL_NN it can be true or false
+    string selectorType = "SEL_KNN"; // SEL_NN, SEL_KNN
     matchDescriptors(imgSource, imgRef, kptsSource, kptsRef, descSource, descRef, matches, descriptorType, matcherType, selectorType);
 }

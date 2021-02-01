@@ -3,11 +3,20 @@ BRISK large dataset results:
 BF matching cross-check=0 (NN) with n=2896 matches in 184.864 ms
 BF matching cross-check=1 (NN) with n=1705 matches in 368.312 ms
 BF matching cross-check=0 (KNN) with n=1578 matches in 186.222 ms
-# keypoints removed by distance ratio check = 1318
+# keypoints removed by distance ratio check = 1318 (46%)
+FLANN matching (KNN) with n=1177 matches in 53.2439 ms
+# keypoints removed by distance ratio check = 1719 (59%)
 
 BRISK small dataset results:
 
 BF matching cross-check=0 (NN) with n=100 matches in 2.07329 ms
 BF matching cross-check=1 (NN) with n=56 matches in 1.70843 ms
 BF matching cross-check=0 (KNN) with n=55 matches in 1.59423 ms
-# keypoints removed by distance ratio check = 45
+# keypoints removed by distance ratio check = 45 (45%)
+FLANN matching (KNN) with n=45 matches in 1.63901 ms
+# keypoints removed by distance ratio check = 55 (55%)
+
+SIFT dataset results:
+FLANN matching (KNN) with n=1048 matches in 43.6391 ms
+# keypoints removed by distance ratio check = 842 (44%)
+
