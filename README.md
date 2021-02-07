@@ -1,4 +1,4 @@
-# descriptor_matching_comparion
+# descriptor_matching_comparison
 
 A series of different descriptor matching and selection methods were tested.
 
